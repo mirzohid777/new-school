@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="./styele.css">
+</head>
+
+<body>
+
+  <div class="school-header">
+    <div class="header-left">
+      <div class="school-logo">204</div>
+      <div class="school-info">
+        <h1>204 MAKTAB 10 E</h1>
+        <p>Bolalar Ro'yxati</p>
+      </div>
+    </div>
+
+
+    <nav class="header-nav">
+      <a href="./main.html" class="nav-link" id="link-students" data-translate="linkStudents">Sinflar</a>
+      <a href="./index.html" class="nav-link" id="link-students" data-translate="linkStudents">O'quvchilar</a>
+      <a href="./today.html" class="nav-link" id="link-today" data-translate="linkToday">Bugun</a>
+      <a href="./fanlar.html" class="nav-link" id="link-fanlar" data-translate="linkFanlar">Fanlar</a>
+      <a href="./arry.html" class="nav-link" id="link-yoqlama" data-translate="linkYoqlama">Yoqlama</a>
+      <a href="./sprabka..html" class="nav-link" id="link-fanlar" data-translate="linkFanlar">Spravka olish</a>
+    </nav>
+    <div class="header-right">
+      <select class="lang-select">
+        <option value="uz">O'zbek</option>
+        <option value="ru">Русский</option>
+        <option value="en">English</option>
+      </select>
+    </div>
+    <button class="menu-btn" onclick="openMenu()">☰</button>
+
+    <div class="overlay" id="overlay" onclick="closeMenu()"></div>
+
+    <div id="mySidebar" class="sidebar">
+      <span class="closebtn" onclick="closeMenu()">×</span>
+      <a href="./main.html">Sinflar</a>
+      <a href="./index.html">O‘quvchilar</a>
+      <a href="./today.html">Bugun</a>
+      <a href="./fanlar.html">Fanlar</a>
+      <a href="./arry.html">Yoqlama</a>
+      <a href="./sprabka..html">Spravka olish</a>
+      <div class="header-right">
+        <select class="lang-select" id="langSelect">
+          <option value="uz">O'zbek</option>
+          <option value="ru">Русский</option>
+          <option value="en">English</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="subjects-container">
+    <div style="display: flex; gap: 12px; margin-bottom: 20px;">
+      <input type="text" class="search-box" id="searchBox" placeholder="Ism bo'yicha" style="margin-bottom: 0;">
+      <button class="btn-primary" id="searchBtn">Qidirish</button>
+      <button class="btn-danger" id="clearBtn">Tozalash</button>
+    </div>
+    <ul class="subject-list" id="subjectList"></ul>
+  </div>
+
+  <div class="modal" id="subjectModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Fan Ma'lumotlari</h2>
+        <button class="close-btn" onclick="closeModal()">×</button>
+      </div>
+      <div class="modal-body" id="modalBody"></div>
+    </div>
+  </div>
+
+
+
+
+  <script>
+    
+    function openMenu() {
+      document.getElementById("mySidebar").style.width = "50%";
+      document.getElementById("overlay").style.display = "block";
+    }
+
+    function closeMenu() {
+      document.getElementById("mySidebar").style.width = "0";
+      document.getElementById("overlay").style.display = "none";
+    }
+
+
+    const subjects = [
+      {
+        name: "Matematika",
+        teacher: "Rahmatulloh Boymirzaev",
+        id: "MAT2024",
+        schedule: [
+          { day: "Dushanba", time: "08:30 - 09:15", room: "301" },
+          { day: "Chorshanba", time: "10:30 - 11:15", room: "301" },
+          { day: "Juma", time: "09:30 - 10:15", room: "301" }
+        ],
+        weeklyCount: 3
+      },
+      {
+        name: "Fizika",
+        teacher: "Sherzod Abdullayev",
+        id: "FIZ2024",
+        schedule: [
+          { day: "Seshanba", time: "11:30 - 12:15", room: "205" },
+          { day: "Payshanba", time: "08:30 - 09:15", room: "205" }
+        ],
+        weeklyCount: 2
+      },
+      {
+        name: "Kimyo",
+        teacher: "Davlatova Laziza",
+        id: "KIM2024",
+        schedule: [
+          { day: "Dushanba", time: "10:30 - 11:15", room: "402" },
+          { day: "Juma", time: "11:30 - 12:15", room: "402" }
+        ],
+        weeklyCount: 2
+      },
+      {
+        name: "Biologiya",
+        teacher: "Nozanin Ismoilova",
+        id: "BIO2024",
+        schedule: [
+          { day: "Seshanba", time: "09:30 - 10:15", room: "304" },
+          { day: "Payshanba", time: "12:30 - 13:15", room: "304" }
+        ],
+        weeklyCount: 2
+      },
+      {
+        name: "Ona tili",
+        teacher: "Navro'z Alisherov",
+        id: "ONA2024",
+        schedule: [
+          { day: "Dushanba", time: "09:30 - 10:15", room: "201" },
+          { day: "Chorshanba", time: "08:30 - 09:15", room: "201" },
+          { day: "Juma", time: "10:30 - 11:15", room: "201" }
+        ],
+        weeklyCount: 3
+      },
+      {
+        name: "Adabiyot",
+        teacher: "Fuzeil Arsenov",
+        id: "ADA2024",
+        schedule: [
+          { day: "Seshanba", time: "10:30 - 11:15", room: "202" },
+          { day: "Payshanba", time: "09:30 - 10:15", room: "202" }
+        ],
+        weeklyCount: 2
+      },
+      {
+        name: "Ingliz tili",
+        teacher: "Jamshid Isomiddinov",
+        id: "ENG2024",
+        schedule: [
+          { day: "Dushanba", time: "11:30 - 12:15", room: "105" },
+          { day: "Chorshanba", time: "09:30 - 10:15", room: "105" },
+          { day: "Juma", time: "08:30 - 09:15", room: "105" }
+        ],
+        weeklyCount: 3
+      },
+      {
+        name: "Tarix",
+        teacher: "Mig'olib Gofurov",
+        id: "TAR2024",
+        schedule: [
+          { day: "Seshanba", time: "08:30 - 09:15", room: "303" },
+          { day: "Payshanba", time: "10:30 - 11:15", room: "303" }
+        ],
+        weeklyCount: 2
+      },
+      {
+        name: "Geografiya",
+        teacher: "Temur Jalolov",
+        id: "GEO2024",
+        schedule: [
+          { day: "Chorshanba", time: "11:30 - 12:15", room: "306" },
+          { day: "Juma", time: "12:30 - 13:15", room: "306" }
+        ],
+        weeklyCount: 2
+      },
+      {
+        name: "Informatika",
+        teacher: "Sherzod Abdullayev",
+        id: "INF2024",
+        schedule: [
+          { day: "Dushanba", time: "12:30 - 13:15", room: "109" },
+          { day: "Payshanba", time: "11:30 - 12:15", room: "109" }
+        ],
+        weeklyCount: 2
+      },
+      {
+        name: "Jismoniy tarbiya",
+        teacher: "Rahmatulloh Boymirzaev",
+        id: "JIS2024",
+        schedule: [
+          { day: "Seshanba", time: "12:30 - 13:15", room: "Stadion" },
+          { day: "Juma", time: "13:30 - 14:15", room: "Stadion" }
+        ],
+        weeklyCount: 2
+      },
+      {
+        name: "Chizmachilik",
+        teacher: "Davlatova Laziza",
+        id: "CHI2024",
+        schedule: [
+          { day: "Chorshanba", time: "12:30 - 13:15", room: "408" }
+        ],
+        weeklyCount: 1
+      },
+      {
+        name: "Huquq",
+        teacher: "Navro'z Alisherov",
+        id: "HUQ2024",
+        schedule: [
+          { day: "Dushanba", time: "13:30 - 14:15", room: "203" }
+        ],
+        weeklyCount: 1
+      },
+      {
+        name: "Iqtisod",
+        teacher: "Mig'olib Gofurov",
+        id: "IQT2024",
+        schedule: [
+          { day: "Seshanba", time: "13:30 - 14:15", room: "204" }
+        ],
+        weeklyCount: 1
+      },
+      {
+        name: "Texnologiya",
+        teacher: "Fuzeil Arsenov",
+        id: "TEX2024",
+        schedule: [
+          { day: "Payshanba", time: "13:30 - 14:15", room: "Workshop" }
+        ],
+        weeklyCount: 1
+      },
+      {
+        name: "San'at",
+        teacher: "Nozanin Ismoilova",
+        id: "SAN2024",
+        schedule: [
+          { day: "Chorshanba", time: "13:30 - 14:15", room: "Art Studio" }
+        ],
+        weeklyCount: 1
+      }
+    ];
+
+    function renderSubjects(filteredSubjects = subjects) {
+      const listEl = document.getElementById('subjectList');
+      listEl.innerHTML = '';
+
+      filteredSubjects.forEach((subject, index) => {
+        const li = document.createElement('li');
+        li.className = 'subject-item';
+        li.innerHTML = `
+                    <span class="subject-number">${index + 1}.</span>
+                    <span class="subject-name">${subject.name}</span>
+                    <span class="arrow">›</span>
+                `;
+        li.onclick = () => showSubjectDetails(subject);
+        listEl.appendChild(li);
+      });
+    }
+
+    function showSubjectDetails(subject) {
+      const modal = document.getElementById('subjectModal');
+      const modalBody = document.getElementById('modalBody');
+
+      const scheduleHTML = subject.schedule.map(s => `
+                <div class="schedule-item">
+                    <div class="schedule-day">${s.day}</div>
+                    <div class="schedule-time">${s.time} - Xona: ${s.room}</div>
+                </div>
+            `).join('');
+
+      modalBody.innerHTML = `
+                <div class="subject-icon">${subject.name.charAt(0)}</div>
+                <div class="subject-title">${subject.name}</div>
+                <div class="subject-id">ID: ${subject.id}</div>
+                
+                <div class="info-section">
+                    <div class="info-section-title">
+                        <span>👨‍🏫</span>
+                        <span>O'qituvchi ma'lumotlari</span>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">To'liq ismi</div>
+                        <div class="info-value">${subject.teacher}</div>
+                    </div>
+                </div>
+                
+                <div class="info-section">
+                    <div class="info-section-title">
+                        <span>📅</span>
+                        <span>Dars jadvali</span>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Haftada</div>
+                        <div class="info-value">${subject.weeklyCount} marta</div>
+                    </div>
+                    <div class="schedule-grid">
+                        ${scheduleHTML}
+                    </div>
+                </div>
+            `;
+
+      modal.classList.add('active');
+    }
+
+    function closeModal() {
+      document.getElementById('subjectModal').classList.remove('active');
+    }
+
+    document.getElementById('searchBox').addEventListener('input', (e) => {
+      const query = e.target.value.toLowerCase();
+      const filtered = subjects.filter(s =>
+        s.name.toLowerCase().includes(query) ||
+        s.teacher.toLowerCase().includes(query)
+      );
+      renderSubjects(filtered);
+    });
+
+    document.getElementById('subjectModal').addEventListener('click', (e) => {
+      if (e.target.id === 'subjectModal') {
+        closeModal();
+      }
+    });
+
+    renderSubjects();
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./styele.css">
+</head>
+
+<body>
+
+
+    <div class="school-header">
+        <div class="header-left">
+            <div class="school-logo">204</div>
+            <div class="school-info">
+                <h1>204 MAKTAB 10 E</h1>
+                <p>Bolalar Ro'yxati</p>
+            </div>
+        </div>
+
+        <nav class="header-nav">
+            <a href="./main.html" class="nav-link" id="link-students" data-translate="linkStudents">Sinflar</a>
+            <a href="./index.html" class="nav-link" id="link-students" data-translate="linkStudents">O'quvchilar</a>
+            <a href="./today.html" class="nav-link" id="link-today" data-translate="linkToday">Bugun</a>
+            <a href="./fanlar.html" class="nav-link" id="link-fanlar" data-translate="linkFanlar">Fanlar</a>
+            <a href="./arry.html" class="nav-link" id="link-yoqlama" data-translate="linkYoqlama">Yoqlama</a>
+            <a href="./sprabka..html" class="nav-link" id="link-fanlar" data-translate="linkFanlar">Spravka olish</a>
+        </nav>
+        <div class="header-right">
+            <select class="lang-select" id="langSelect">
+                <option value="uz">O'zbek</option>
+                <option value="ru">Русский</option>
+                <option value="en">English</option>
+            </select>
+        </div>
+
+        <button class="menu-btn" onclick="openMenu()">☰</button>
+
+        <div class="overlay" id="overlay" onclick="closeMenu()"></div>
+
+        <div id="mySidebar" class="sidebar">
+            <span class="closebtn" onclick="closeMenu()">×</span>
+            <a href="./main.html">Sinflar</a>
+            <a href="./index.html">O‘quvchilar</a>
+            <a href="./today.html">Bugun</a>
+            <a href="./fanlar.html">Fanlar</a>
+            <a href="./arry.html">Yoqlama</a>
+            <a href="./sprabka..html">Spravka olish</a>
+
+        </div>
+
+    </div>
+
+    <div class="classes-grid" id="classesGrid"></div>
+
+
+
+
+
+
+    <script>
+        // ===================================
+        // DROB DOWN 
+        // ====================================
+        function openMenu() {
+            document.getElementById("mySidebar").style.width = "50%";
+            document.getElementById("overlay").style.display = "block";
+        }
+
+        function closeMenu() {
+            document.getElementById("mySidebar").style.width = "0";
+            document.getElementById("overlay").style.display = "none";
+        }
+
+        // ===================================
+        // SINFLAR START
+        // ====================================
+
+        const sections = ['A', 'B', 'D', 'G', 'E'];
+        const sectionClasses = {
+            'A': 'section-a',
+            'B': 'section-b',
+            'D': 'section-d',
+            'G': 'section-g',
+            'E': 'section-e'
+        };
+
+        const classesGrid = document.getElementById('classesGrid');
+        const selectedInfo = document.getElementById('selectedInfo');
+        const selectedText = document.getElementById('selectedText');
+
+        for (let i = 1; i <= 11; i++) {
+            const classCard = document.createElement('div');
+            classCard.className = 'class-card';
+
+            const classHeader = document.createElement('div');
+            classHeader.className = 'class-header';
+            classHeader.innerHTML = `<div class="class-number">${i}-sinf</div>`;
+
+            const sectionsDiv = document.createElement('div');
+            sectionsDiv.className = 'sections';
+
+            sections.forEach(section => {
+                const btn = document.createElement('button');
+                btn.className = `section-btn ${sectionClasses[section]}`;
+                btn.textContent = section;
+                btn.onclick = () => selectClass(i, section);
+                sectionsDiv.appendChild(btn);
+            });
+
+            classCard.appendChild(classHeader);
+            classCard.appendChild(sectionsDiv);
+            classesGrid.appendChild(classCard);
+        }
+
+        function selectClass(classNum, section) {
+            selectedText.textContent = `${classNum}-sinf ${section} guruhi`;
+            selectedInfo.classList.add('show');
+
+            setTimeout(() => {
+                selectedInfo.classList.remove('show');
+            }, 3000);
+        }
+    </script>
+</body>
+
+</html>

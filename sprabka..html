@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./styele.css">
+</head>
+
+<body>
+
+
+    <div class="school-header">
+        <div class="header-left">
+            <div class="school-logo">204</div>
+            <div class="school-info">
+                <h1>204 MAKTAB 10 E</h1>
+                <p>Bolalar Ro'yxati</p>
+            </div>
+        </div>
+
+        <nav class="header-nav">
+            <a href="./main.html" class="nav-link" id="link-students" data-translate="linkStudents">Sinflar</a>
+            <a href="./index.html" class="nav-link" id="link-students" data-translate="linkStudents">O'quvchilar</a>
+            <a href="./today.html" class="nav-link" id="link-today" data-translate="linkToday">Bugun</a>
+            <a href="./fanlar.html" class="nav-link" id="link-fanlar" data-translate="linkFanlar">Fanlar</a>
+            <a href="./arry.html" class="nav-link" id="link-yoqlama" data-translate="linkYoqlama">Yoqlama</a>
+            <a href="./sprabka..html" class="nav-link" id="link-fanlar" data-translate="linkFanlar">Spravka olish</a>
+        </nav>
+        <div class="header-right">
+            <select class="lang-select" id="langSelect">
+                <option value="uz">O'zbek</option>
+                <option value="ru">Русский</option>
+                <option value="en">English</option>
+            </select>
+        </div>
+        <button class="menu-btn" onclick="openMenu()">☰</button>
+
+        <div class="overlay" id="overlay" onclick="closeMenu()"></div>
+
+        <div id="mySidebar" class="sidebar">
+            <span class="closebtn" onclick="closeMenu()">×</span>
+            <a href="./main.html">Sinflar</a>
+            <a href="./index.html">O‘quvchilar</a>
+            <a href="./today.html">Bugun</a>
+            <a href="./fanlar.html">Fanlar</a>
+            <a href="./arry.html">Yoqlama</a>
+            <a href="./sprabka..html">Spravka olish</a>
+            <div class="header-right">
+                <select class="lang-select" id="langSelect">
+                    <option value="uz">O'zbek</option>
+                    <option value="ru">Русский</option>
+                    <option value="en">English</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <div class="form-container">
+        <form id="certificateForm">
+            <div class="form-group">
+                <label>Ism:</label>
+                <input type="text" id="firstName" required placeholder="Ismingizni kiriting">
+            </div>
+
+            <div class="form-group">
+                <label>Familiya:</label>
+                <input type="text" id="lastName" required placeholder="Familiyangizni kiriting">
+            </div>
+
+            <div class="form-group class-selection">
+                <div>
+                    <label>Sinf:</label>
+                    <select id="classNumber" required>
+                        <option value="">Sinfni tanlang</option>
+                        <option value="1">1-sinf</option>
+                        <option value="2">2-sinf</option>
+                        <option value="3">3-sinf</option>
+                        <option value="4">4-sinf</option>
+                        <option value="5">5-sinf</option>
+                        <option value="6">6-sinf</option>
+                        <option value="7">7-sinf</option>
+                        <option value="8">8-sinf</option>
+                        <option value="9">9-sinf</option>
+                        <option value="10">10-sinf</option>
+                        <option value="11">11-sinf</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Sinf harfi:</label>
+                <div class="section-buttons">
+                    <button type="button" class="section-btn section-a" data-section="A">A</button>
+                    <button type="button" class="section-btn section-b" data-section="B">B</button>
+                    <button type="button" class="section-btn section-d" data-section="D">D</button>
+                    <button type="button" class="section-btn section-g" data-section="G">G</button>
+                    <button type="button" class="section-btn section-e" data-section="E">E</button>
+                </div>
+                <input type="hidden" id="section" required>
+            </div>
+
+            <div class="form-group">
+                <label>Sinf rahbari:</label>
+                <input type="text" id="classTeacher" required placeholder="Sinf rahbari F.I.SH">
+            </div>
+
+            <div class="form-group">
+                <label>Dan (sana):</label>
+                <input type="date" id="dateFrom" required>
+            </div>
+
+            <div class="form-group">
+                <label>Gacha (sana):</label>
+                <input type="date" id="dateTo" required>
+            </div>
+
+            <button type="submit" class="submit-btn">Ma'lumotnoma Yaratish</button>
+        </form>
+    </div>
+
+    <div class="preview" id="preview">
+        <div class="preview-header">
+            <h2>MA'LUMOTNOMA</h2>
+            <p style="color: #666;">204 Maktab</p>
+        </div>
+        <div class="preview-content" id="previewContent"></div>
+        <button class="download-btn" id="downloadBtn">📥 PDF Yuklash</button>
+    </div>
+
+
+
+
+
+
+    <script>
+        // ===================================
+        // DROB DOWN 
+        // ====================================
+        function openMenu() {
+            document.getElementById("mySidebar").style.width = "50%";
+            document.getElementById("overlay").style.display = "block";
+        }
+
+        function closeMenu() {
+            document.getElementById("mySidebar").style.width = "0";
+            document.getElementById("overlay").style.display = "none";
+        }
+
+        // ===================================
+        // SPRABKA START
+        // ====================================
+
+        let selectedSection = '';
+        const sectionButtons = document.querySelectorAll('.section-btn');
+        const form = document.getElementById('certificateForm');
+        const preview = document.getElementById('preview');
+        const previewContent = document.getElementById('previewContent');
+        const downloadBtn = document.getElementById('downloadBtn');
+
+        sectionButtons.forEach(btn => {
+            btn.addEventListener('click', function () {
+                sectionButtons.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                selectedSection = this.dataset.section;
+                document.getElementById('section').value = selectedSection;
+            });
+        });
+
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            if (!selectedSection) {
+                alert('Iltimos, sinf harfini tanlang!');
+                return;
+            }
+
+            const firstName = document.getElementById('firstName').value;
+            const lastName = document.getElementById('lastName').value;
+            const classNumber = document.getElementById('classNumber').value;
+            const classTeacher = document.getElementById('classTeacher').value;
+            const dateFrom = document.getElementById('dateFrom').value;
+            const dateTo = document.getElementById('dateTo').value;
+
+            const dateFromFormatted = new Date(dateFrom).toLocaleDateString('uz-UZ');
+            const dateToFormatted = new Date(dateTo).toLocaleDateString('uz-UZ');
+            const today = new Date().toLocaleDateString('uz-UZ');
+
+            previewContent.innerHTML = `
+                <p><strong>Ma'lumotnoma raqami:</strong> ${Math.floor(Math.random() * 10000)}</p>
+                <p><strong>Sana:</strong> ${today}</p>
+                <br>
+                <p>Ushbu ma'lumotnoma <strong>${lastName} ${firstName}</strong> 204 Maktabning <strong>${classNumber}-${selectedSection}</strong> sinf o'quvchisi ekanligini tasdiqlaydi.</p>
+                <br>
+                <p><strong>Sinf rahbari:</strong> ${classTeacher}</p>
+                <p><strong>O'qish davri:</strong> ${dateFromFormatted} dan ${dateToFormatted} gacha</p>
+                <br>
+                <p style="margin-top: 40px;">________________________</p>
+                <p><strong>Maktab direktori</strong></p>
+            `;
+
+            preview.classList.add('show');
+            preview.scrollIntoView({ behavior: 'smooth' });
+        });
+
+        downloadBtn.addEventListener('click', function () {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            const firstName = document.getElementById('firstName').value;
+            const lastName = document.getElementById('lastName').value;
+            const classNumber = document.getElementById('classNumber').value;
+            const classTeacher = document.getElementById('classTeacher').value;
+            const dateFrom = document.getElementById('dateFrom').value;
+            const dateTo = document.getElementById('dateTo').value;
+
+            const dateFromFormatted = new Date(dateFrom).toLocaleDateString('uz-UZ');
+            const dateToFormatted = new Date(dateTo).toLocaleDateString('uz-UZ');
+            const today = new Date().toLocaleDateString('uz-UZ');
+            const certNumber = Math.floor(Math.random() * 10000);
+
+            doc.setFontSize(20);
+            doc.text("MA'LUMOTNOMA", 105, 30, { align: 'center' });
+
+            doc.setFontSize(14);
+            doc.text("204 MAKTAB", 105, 40, { align: 'center' });
+
+            doc.setFontSize(12);
+            doc.text(`Ma'lumotnoma raqami: ${certNumber}`, 20, 60);
+            doc.text(`Sana: ${today}`, 20, 70);
+
+            doc.setFontSize(11);
+            const text = `Ushbu ma'lumotnoma ${lastName} ${firstName} 204 Maktabning ${classNumber}-${selectedSection} sinf o'quvchisi ekanligini tasdiqlaydi.`;
+            const splitText = doc.splitTextToSize(text, 170);
+            doc.text(splitText, 20, 90);
+
+            doc.text(`Sinf rahbari: ${classTeacher}`, 20, 120);
+            doc.text(`O'qish davri: ${dateFromFormatted} dan ${dateToFormatted} gacha`, 20, 130);
+
+            doc.text('________________________', 20, 180);
+            doc.text('Maktab direktori', 20, 190);
+
+            doc.save(`Malumotnoma_${lastName}_${firstName}.pdf`);
+        });
+
+        document.getElementById('dateFrom').valueAsDate = new Date();
+        document.getElementById('dateTo').valueAsDate = new Date();
+    </script>
+
+
+
+
+
+</body>
+
+</html>
